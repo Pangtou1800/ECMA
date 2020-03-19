@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Node Interface</title>
+</head>
+
+<body>
+    <p id="textP" onclick="textPOnClick()">Click Me!</p>
+    <hr />
+    <p id="output"></p>
+    <script>
+        function addTextToOutput(text) {
+            let result = document.getElementById("output").innerHTML + "<br/>" + text;
+            document.getElementById("output").innerHTML = result;
+        }
+
+        function textPOnClick() {
+            let result = document.nodeType;
+            setTimeout(function () {
+                document.getElementById("output").innerHTML = "document.nodeType: " + result;
+                setTimeout(function () {
+                    let result = document.getElementById("output").innerHTML;
+                    result = result + "<br />document.nodeType === Node.DOCUMENT_NODE: " + (document.nodeType === Node.DOCUMENT_NODE);
+                    document.getElementById("output").innerHTML = result;
+                    setTimeout(function () {
+                        let temp = "'Click Me' is a " + document.getElementById("textP").nodeName;
+                        let result = document.getElementById("output").innerHTML + "<br/>" + temp;
+                        document.getElementById("output").innerHTML = result;
+                        setTimeout(function () {
+                            let temp = "BaseURI of the page is <a>" + document.baseURI + "</a>";
+                            addTextToOutput(temp);
+                            setTimeout(function () {
+                                let temp = "The node next to 'Click Me!' is a " + document.getElementById('textP').nextSibling.nodeName;
+                                addTextToOutput(temp);
+                            }, 500);
+                        }, 500);
+                    }, 500);
+                }, 500);
+            }, 500);
+        }
+
+
+    </script>
+</body>
+
+</html>
