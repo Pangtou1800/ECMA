@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Document</title>
+</head>
+
+<body>
+    <a href="www.baidu.com">Baidu</a>
+    <a href="www.google.com">Google</a>
+    <hr />
+    <p id="output"></p>
+</body>
+<script>
+    var out = document.getElementById("output");
+    out.innerHTML = document.defaultView;
+
+    let textObj = {
+        text: '',
+        addText: function (text) {
+            this.text = this.text + text + "<br/>";
+        },
+        toString: function () {
+            return this.text;
+        }
+    };
+    textObj.addText(out.innerHTML);
+
+    let doctype = document.doctype;
+    textObj.addText(doctype.toString());
+    textObj.addText('doctype.name: ' + doctype.name);
+
+    textObj.addText('document.documentElement.tagName: ' + document.documentElement.tagName);
+    textObj.addText('document.body: ' + document.body.tagName);
+    textObj.addText('document.head: ' + document.head.tagName);
+
+    for (linkObj in document.links) {
+        textObj.addText('document.links: ' + linkObj);
+    }
+
+    // textObj.addText('document.scripts: ' + document.scripts[0].innerText);
+    textObj.addText('<hr />');
+
+    textObj.addText('document.URL: ' + document.URL);
+    textObj.addText('document.documentURI: ' + document.documentURI);
+    textObj.addText('document.location: ' + document.location);
+    textObj.addText('document.lastModified: ' + document.lastModified);
+    textObj.addText('document.title: ' + document.title);
+    document.title = 'Change Title!';
+    textObj.addText('document.title: ' + document.title);
+    textObj.addText('document.characterSet: ' + document.characterSet);
+
+    textObj.addText('document.referrer: ' + document.referrer);
+    textObj.addText('document.dir: ' + document.dir);
+    textObj.addText('document.compatMode: ' + document.compatMode);
+
+    function showProp(prop) {
+        let result = 'document.' + prop + ': ';
+        result = result + document[prop];
+        return result;
+    }
+
+    textObj.addText(showProp('visibilityState'));
+    textObj.addText(showProp('readyState'));
+
+    let interval = setInterval(function() {
+        if (document.readyState === 'complete') {
+            clearInterval(interval);
+        }
+        console.log(document.readyState);
+    }, 100);
+
+    textObj.addText(document.querySelector('a').innerHTML);
+    textObj.addText(document.querySelectorAll('a'));
+
+    out.innerHTML = textObj.toString();
+
+    document.write("before open");
+    document.open();
+    document.write("aaa");
+    document.close();
+    document.write("after close");
+
+    let div = document.createElement('div');
+    div.appendChild(document.createTextNode('<span>Foo & Bar</span>'));
+    document.getElementById('output').appendChild(div);
+
+
+</script>
+
+</html>
