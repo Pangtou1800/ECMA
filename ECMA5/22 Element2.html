@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>Element 2</title>
+    <style>
+        .smart {
+            background-color: orange;
+        }
+
+        .cute {
+            background-color: pink;
+        }
+
+        .hot {
+            background-color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <div style="width: 200px; height: 200px; background-color: orange;" id="father">
+        <p id="target">Hey!</p>
+    </div>
+    <hr />
+    <div id="output"></div>
+</body>
+<script>
+    'use strict';
+    let out = {
+        text: '',
+        add: function (text) {
+            this.text = this.text + text;
+        },
+        addln: function (text) {
+            this.add(text);
+            this.text += '<br/>';
+        },
+        print: function () {
+            return this.text;
+        }
+    };
+
+    let target = document.getElementById("target");
+
+    target.contentEditable = true;
+
+    out.addln(target.outerHTML);
+
+    // target.outerHTML = "<div style='background-color: lightgreen'>Click Me!</div>";
+
+
+    document.getElementById("output").innerHTML = out.print();
+
+    function timeOutAlert() {
+        setTimeout(()=> {
+            alert('You clicked me 1 second ago!');
+        }, 1000);
+        target.removeEventListener('click', timeOutAlert);
+    }
+
+    target.addEventListener('click', timeOutAlert);
+
+    let father = document.getElementById("father");
+    for (let i = 0; i < 16; i++) {
+        father.innerHTML += "<div style='background-color: lightgreen; width: 50px; height: 50px; display: inline-block' onclick='disappear()'></div>";
+    }
+    let disappear = function() {
+        event.srcElement.hidden= true;
+    };
+
+</script>
+
+</html>
