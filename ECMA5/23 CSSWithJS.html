@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>CSS With JavaScript</title>
+    <style>
+        div {
+            display: inline-block;
+            vertical-align: top;
+        }
+    </style>
+</head>
+
+<body>
+    <div onclick="(function() {
+        event.srcElement.setAttribute('style','width: 100px; height: 100px; background-color: pink;border: 1px solid red');
+    })()">Click Me!</div>
+    <div onclick="(function() {
+        let divStyle = event.srcElement.style;
+        divStyle.background = 'lightgreen';
+        divStyle.border = '1px solid green';
+        divStyle.width = '100px';
+        divStyle.height = '100px';
+        divStyle.fontSize = '2em';
+        document.getElementById('output').textContent = divStyle.cssText + ' ' + divStyle.length;
+    })()">Click Me! 2</div>
+    <div onclick="ClickMe3OnClick()" style="display: inline-block; vertical-align: top">Click Me! 3</div>
+    <div onclick="(function(){
+        let cssSentence1 = 'background: red';
+        result = cssSentence1 + ' is valid? ' + CSS.supports(cssSentence1);
+        let cssSentence2 = 'face: big';
+        result += '; ' + cssSentence2 + ' is valid? ' + CSS.supports(cssSentence2);
+        document.getElementById('output').textContent = result;
+
+        let divStyle = event.srcElement.style;
+        divStyle.setProperty('border', '1px solid blue');
+        divStyle.setProperty('background', 'lightblue');
+        divStyle.setProperty('width', '100px');
+        divStyle.setProperty('height', '100px');
+    })()">Click Me! 4</div>
+    <div onclick="(function() {
+        let style=event.srcElement.style;
+        style.setProperty('fontSize','2em');
+        style.setProperty('border', '1px solid brown');
+        style.setProperty('background-color', 'beige');
+        style.setProperty('width', '100px');
+        style.setProperty('height', '100px');
+        style.setProperty('text-align', 'center');
+        event.srcElement.textContent = 'Superise!';
+        let result = window.getComputedStyle(event.srcElement);
+        document.getElementById('output').innerHTML = result.cssText.replace(/;/g, ';<br/>');
+    })()">Click Me! 5</div>
+    <hr />
+    <p id="output"></p>
+</body>
+<script>
+    function ClickMe3OnClick() {
+        let divStyle = event.srcElement.style;
+        divStyle.cssText += ";background: gold; border: 1px solid orange; width: 100px; height: 100px;";
+
+        let attr1 = 'display';
+        let attr2 = 'vertical-align';
+        let result = attr1 + ': ' + divStyle.getPropertyValue(attr1)
+            + '; ' + attr2 + ': ' + divStyle.getPropertyValue(attr2);
+        document.getElementById('output').textContent = result;
+    }
+</script>
+
+</html>
